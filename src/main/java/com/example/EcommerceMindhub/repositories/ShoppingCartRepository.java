@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 @RepositoryRestResource
-public interface ShoppingCartRepository extends JpaRepository<Long, ShoppingCartRepository> {
+public interface ShoppingCartRepository extends JpaRepository<ShoppingCartRepository, Long> {
 
 
 }
