@@ -24,6 +24,10 @@ public class EcommerceMindhubApplication {
 									  ProductRepository productRepository)  {
 		return (args) ->{
 
+
+
+
+
 		};
 	};
 

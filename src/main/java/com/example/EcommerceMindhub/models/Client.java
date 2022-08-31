@@ -80,6 +80,7 @@ public class Client {
         this.adress = adress;
     }
 
+
     public String getPassword() {
         return password;
     }
