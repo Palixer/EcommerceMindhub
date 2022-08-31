@@ -2,10 +2,9 @@ package com.example.EcommerceMindhub.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Client {
@@ -19,6 +18,9 @@ public class Client {
     private String email;
     private String adress;
     private String password;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    Set<ShoppingCart> shoppingCarts = new HashSet<>();
 
     public Client() {
     }
