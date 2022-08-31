@@ -36,10 +36,6 @@ public class Client {
         this.password = password;
     }
 
-
-
-
-
     public Long getId() {
         return id;
     }
