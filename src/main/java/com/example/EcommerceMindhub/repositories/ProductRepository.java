@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository {
 
     Product  findById(Long id);
+
 }
