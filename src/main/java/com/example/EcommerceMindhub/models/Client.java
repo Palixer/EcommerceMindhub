@@ -88,6 +88,14 @@ public class Client {
         this.password = password;
     }
 
+    public Set<ShoppingCart> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(Set<ShoppingCart> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
     @Override
     public String toString() {
         return "Client{" +

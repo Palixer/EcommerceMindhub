@@ -1,5 +1,6 @@
 package com.example.EcommerceMindhub;
 
+import com.example.EcommerceMindhub.models.Client;
 import com.example.EcommerceMindhub.repositories.ClientRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -19,8 +20,12 @@ public class EcommerceMindhubApplication {
 	@Bean
 	//Instanciamos el repositorio
 	public CommandLineRunner initData(ClientRepository clientRepository,
-									  ShoppingCartRepository shoppingCartRepositories)  {
+									  ShoppingCartRepository shoppingCartRepository)  {
 		return (args) ->{
+
+			Client client1= new Client("Lucia","Saederup","luciasaederup@gmail.com","Av. siempre viva 123","1234");
+
+			clientRepository.save(client1);
 
 		};
 	};
