@@ -19,8 +19,11 @@ public class Client {
     private String adress;
     private String password;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    Set<ShoppingCart> shoppingCarts = new HashSet<>();
+    /*@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    Set<ShoppingCart> shoppingCarts = new HashSet<>();*/
+
+    @OneToOne(mappedBy = "client", fetch = FetchType.EAGER)
+    Set<ShoppingCart> shoppingCart=new HashSet<>();
 
     public Client() {
     }
@@ -32,6 +35,8 @@ public class Client {
         this.adress=adress;
         this.password = password;
     }
+
+
 
 
 

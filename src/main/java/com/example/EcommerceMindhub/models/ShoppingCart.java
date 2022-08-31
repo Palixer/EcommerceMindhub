@@ -13,6 +13,16 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
+    private Long idClient;
+    public ShoppingCart() {
+    }
 
+    public ShoppingCart(Long idClient){
+        this.idClient= idClient;
+    }
+
+    public Long getIdClient() {
+        return idClient;
+    }
 
 }
