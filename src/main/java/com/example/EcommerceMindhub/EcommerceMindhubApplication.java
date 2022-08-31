@@ -25,10 +25,8 @@ public class EcommerceMindhubApplication {
 		return (args) ->{
 
 			Client client1= new Client("Lucia","Saederup","luciasaederup@gmail.com","Av. siempre viva 123","1234");
-			ShoppingCart shoppingCart1=new ShoppingCart(client1);
 
 
-			clientRepository.save(client1);
 
 		};
 	};
