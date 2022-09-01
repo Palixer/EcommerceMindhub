@@ -1,6 +1,7 @@
 package com.example.EcommerceMindhub;
 
 import com.example.EcommerceMindhub.repositories.ClientRepository;
+import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
 import com.example.EcommerceMindhub.repositories.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +22,8 @@ public class EcommerceMindhubApplication {
 	//Instanciamos el repositorio
 	public CommandLineRunner initData(ClientRepository clientRepository,
 									  ShoppingCartRepository shoppingCartRepository,
-									  ProductRepository productRepository)  {
+									  ProductRepository productRepository,
+									  PurchaseOrRepository purchaseOrRepository)  {
 		return (args) ->{
 
 		};
