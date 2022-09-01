@@ -1,7 +1,6 @@
 package com.example.EcommerceMindhub.models;
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +24,15 @@ public class ShoppingCart {
     @OneToOne
     @JoinColumn(name="client_id")
     private Client client;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Set<Bill> getBills() {
         return bills;
     }
