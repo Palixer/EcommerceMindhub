@@ -15,7 +15,7 @@ public class Bill {
     private Date createDate;
 
     //cambiar a como type
-    private String wayToPay;
+    private WayToPayType wayToPay;
 
     /*@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="shoppingCart_id")
@@ -24,10 +24,9 @@ public class Bill {
     public Bill(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
-    public Bill(double priceTotal, Date createDate, String wayToPay, ShoppingCart shoppingCart) {
+    public Bill(double priceTotal, Date createDate, ShoppingCart shoppingCart) {
         this.priceTotal = priceTotal;
         this.createDate = createDate;
-        this.wayToPay = wayToPay;
         this.shoppingCart = shoppingCart;
     }
 
@@ -47,13 +46,7 @@ public class Bill {
         this.createDate = createDate;
     }
 
-    public String getWayToPay() {
-        return wayToPay;
-    }
 
-    public void setWayToPay(String wayToPay) {
-        this.wayToPay = wayToPay;
-    }
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
