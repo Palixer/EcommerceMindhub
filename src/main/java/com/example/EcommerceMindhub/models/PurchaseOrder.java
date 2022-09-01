@@ -6,42 +6,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
-public class Product {
+public class PurchaseOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
 
-    private String name;
+    private int quantity;
 
     private double price;
 
-    private int stock;
+    private Date creationDate;
 
 
-    //Falta la relación con PurchaseOrder
-
-    /*
-    * EJEMPLO
-    *     @OneToOne(mappedBy = "client", fetch = FetchType.EAGER)
-    Set<ShoppingCart> shoppingCart=new HashSet<>();
-
-    * */
+    //Falta la relación con Product
 
 
-    public Product() {
+
+    public PurchaseOrder() {
     }
 
-
-    public Product(String name, double price, int stock) {
-        this.name = name;
+    public PurchaseOrder(int quantity, double price, Date creationDate) {
+        this.quantity = quantity;
         this.price = price;
-        this.stock = stock;
+        this.creationDate = creationDate;
     }
-
 
     public Long getId() {
         return id;
@@ -51,12 +44,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getPrice() {
@@ -67,21 +60,21 @@ public class Product {
         this.price = price;
     }
 
-    public int getStock() {
-        return stock;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "PurchaseOrder{" +
                 "id=" + id +
-                ", nombre='" + name + '\'' +
-                ", precio=" + price +
-                ", stock=" + stock +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", creationDate=" + creationDate +
                 '}';
     }
 }
