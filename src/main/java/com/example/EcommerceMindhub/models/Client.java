@@ -36,10 +36,6 @@ public class Client {
         this.password = password;
     }
 
-
-
-
-
     public Long getId() {
         return id;
     }
@@ -79,6 +75,7 @@ public class Client {
     public void setAdress(String adress) {
         this.adress = adress;
     }
+
 
     public String getPassword() {
         return password;
