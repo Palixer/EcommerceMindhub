@@ -13,8 +13,9 @@ public class ShoppingCart {
     @GenericGenerator(name = "native", strategy = "native")
 
     private Long id;
-    //@OneToOne
-    public ShoppingCart() {
+
+    public ShoppingCart(Client client) {
+        this.client=client;
 
     }
     @OneToMany(mappedBy="shoppingCart", fetch=FetchType.EAGER)
@@ -30,7 +31,6 @@ public class ShoppingCart {
     public void setBills(Set<Bill> bills) {
         this.bills = bills;
     }
-
     public Client getClient() {
         return client;
     }
@@ -47,5 +47,6 @@ public class ShoppingCart {
         this.purchaseOrders = purchaseOrders;
     }
 
-
+    public void add(ShoppingCart shoppingCart) {
+    }
 }

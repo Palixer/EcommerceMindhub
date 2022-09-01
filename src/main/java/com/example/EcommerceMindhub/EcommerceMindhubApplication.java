@@ -1,6 +1,8 @@
 package com.example.EcommerceMindhub;
 
+import com.example.EcommerceMindhub.models.Client;
 import com.example.EcommerceMindhub.models.Product;
+import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,6 +33,24 @@ public class EcommerceMindhubApplication {
 			productRepository.save(product1);
 			productRepository.save(product2);
 			productRepository.save(product3);
+
+			Client client1=new Client("Lucia", "Saederup", "lucia@gmail.com", "Av. Siempre Viva 123", "1234");
+			Client client2=new Client("Gabriel", "Cuello", "Gabriel@gmail.com", "Av. Siempre Viva 130", "1234");
+			Client client3=new Client("Ibrian", "Festorazzi", "Ibrian@gmail.com", "Av. Siempre Viva 145", "1234");
+			Client client4=new Client("Nadia", "Matsumoto", "Nadia@gmail.com", "Av. Siempre Viva 150", "1234");
+
+			clientRepository.save(client1);
+			clientRepository.save(client2);
+			clientRepository.save(client3);
+			clientRepository.save(client4);
+
+			/*ShoppingCart carrito1=new ShoppingCart(client1);
+			ShoppingCart carrito2=new ShoppingCart(client2);
+			ShoppingCart carrito3=new ShoppingCart(client3);
+			ShoppingCart carrito4=new ShoppingCart(client4);
+
+			shoppingCartRepositories.save*/
+
 		};
 	};
 
