@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 public class Bill {
-    private ShoppingCart shoppingCart;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -14,19 +14,17 @@ public class Bill {
     private double priceTotal;
     private Date createDate;
 
-    //cambiar a como type
     private WayToPayType wayToPay;
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="shoppingCart_id")
-    private ShoppingCart shoppingCart;*/
-
+    private ShoppingCart shoppingCart;
     public Bill(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
-    public Bill(double priceTotal, Date createDate, ShoppingCart shoppingCart) {
+    public Bill(double priceTotal, ShoppingCart shoppingCart) {
         this.priceTotal = priceTotal;
-        this.createDate = createDate;
+        this.createDate = new Date();
         this.shoppingCart = shoppingCart;
     }
 
@@ -37,15 +35,6 @@ public class Bill {
     public void setPriceTotal(double priceTotal) {
         this.priceTotal = priceTotal;
     }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
 
 
     public ShoppingCart getShoppingCart() {

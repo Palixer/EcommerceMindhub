@@ -3,6 +3,8 @@ package com.example.EcommerceMindhub.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class ShoppingCart {
@@ -13,9 +15,37 @@ public class ShoppingCart {
     private Long id;
     //@OneToOne
     public ShoppingCart() {
+
+    }
+    @OneToMany(mappedBy="shoppingCart", fetch=FetchType.EAGER)
+    Set<Bill> bills = new HashSet<>();
+    @OneToMany(mappedBy="shoppingCart", fetch=FetchType.EAGER)
+    Set<PurchaseOrder> purchaseOrders = new HashSet<>();
+    @OneToOne
+    @JoinColumn(name="client_id")
+    private Client client;
+    public Set<Bill> getBills() {
+        return bills;
+    }
+    public void setBills(Set<Bill> bills) {
+        this.bills = bills;
     }
 
+    public Client getClient() {
+        return client;
+    }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Set<PurchaseOrder> getPurchaseOrders() {
+        return purchaseOrders;
+    }
+
+    public void setPurchaseOrders(Set<PurchaseOrder> purchaseOrders) {
+        this.purchaseOrders = purchaseOrders;
+    }
 
 
 }

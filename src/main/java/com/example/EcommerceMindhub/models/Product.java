@@ -2,10 +2,9 @@ package com.example.EcommerceMindhub.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -22,27 +21,17 @@ public class Product {
     private int stock;
 
 
-    //Falta la relación con PurchaseOrder
-
-    /*
-    * EJEMPLO
-    *     @OneToOne(mappedBy = "client", fetch = FetchType.EAGER)
-    Set<ShoppingCart> shoppingCart=new HashSet<>();
-
-    * */
-
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    Set<PurchaseOrder> purchaseOrders=new HashSet<>();
 
     public Product() {
     }
-
 
     public Product(String name, double price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
     }
-
-
     public Long getId() {
         return id;
     }
@@ -73,6 +62,14 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public Set<PurchaseOrder> getPurchaseOrders() {
+        return purchaseOrders;
+    }
+
+    public void setPurchaseOrders(Set<PurchaseOrder> purchaseOrders) {
+        this.purchaseOrders = purchaseOrders;
     }
 
     @Override
