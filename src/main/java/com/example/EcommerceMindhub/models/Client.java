@@ -19,7 +19,7 @@ public class Client {
     private String address;
     private String password;
 
-    @OneToOne(mappedBy="cart")
+    @OneToOne(mappedBy="client")
     private ShoppingCart shoppingCart;
 
     public Client() {
