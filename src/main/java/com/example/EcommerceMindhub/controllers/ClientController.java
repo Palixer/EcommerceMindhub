@@ -63,13 +63,10 @@ public class ClientController {
         shoppingCartRepository.save(newShoppingCart);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
-
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
-
 
 }
 
