@@ -29,10 +29,12 @@ public class PurchaseOrder {
     public PurchaseOrder() {
     }
 
-    public PurchaseOrder(int quantity, double price) {
+    public PurchaseOrder(int quantity, double price, ShoppingCart shoppingCart, Product product) {
         this.quantity = quantity;
         this.price = price;
         this.creationDate = new Date();
+        this.shoppingCart = shoppingCart;
+        this.product = product;
     }
 
     public Long getId() {

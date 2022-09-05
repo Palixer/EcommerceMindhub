@@ -2,6 +2,7 @@ package com.example.EcommerceMindhub;
 
 import com.example.EcommerceMindhub.models.Client;
 import com.example.EcommerceMindhub.models.Product;
+import com.example.EcommerceMindhub.models.PurchaseOrder;
 import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.*;
 import org.springframework.boot.CommandLineRunner;
@@ -50,8 +51,12 @@ public class EcommerceMindhubApplication {
 			ShoppingCart carrito4=new ShoppingCart(client4);
 
 			shoppingCartRepositories.save*/
+			PurchaseOrder purchaseOrder1= new PurchaseOrder(2, 200*2, client1.getShoppingCart(), product1);
+
+			purchaseOrRepository.save(purchaseOrder1);
 
 		};
+
 	};
 
 }

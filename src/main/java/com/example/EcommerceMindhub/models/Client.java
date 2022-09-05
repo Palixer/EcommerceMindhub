@@ -1,11 +1,8 @@
 package com.example.EcommerceMindhub.models;
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 public class Client {
