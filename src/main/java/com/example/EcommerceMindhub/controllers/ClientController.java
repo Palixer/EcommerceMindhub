@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 @RestController
+@RequestMapping("/api")
 public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
