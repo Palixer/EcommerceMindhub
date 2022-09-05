@@ -6,10 +6,8 @@ import com.example.EcommerceMindhub.repositories.ClientRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,8 +32,10 @@ public class ShoppingCartController {
     public ShoppingCartDTO getShoppingCart(Authentication authentication){
         Client client=this.clientRepository.findByEmail(authentication.getName());
         return  new ShoppingCartDTO(client.getShoppingCart());
-
     }
+
+    @PostMapping("/clients/current/shoppingCart")
+    public ShoppingCart
 
 
 
