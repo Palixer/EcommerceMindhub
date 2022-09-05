@@ -3,6 +3,7 @@ package com.example.EcommerceMindhub.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -73,6 +74,13 @@ public class Client {
         this.address = address;
     }
 
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
 
     public String getPassword() {
         return password;
@@ -82,10 +90,10 @@ public class Client {
         this.password = password;
     }
 
-    public void addShoppingCart(ShoppingCart shoppingCart) {
+    /*public void addShoppingCart(ShoppingCart shoppingCart) {
         shoppingCart.setClient(this);
         shoppingCart.add(shoppingCart);
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -96,4 +104,4 @@ public class Client {
                 ", email='" + email + '\'' +
                 '}';
     }
-}
+ }
