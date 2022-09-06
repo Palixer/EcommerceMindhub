@@ -1,10 +1,13 @@
 package com.example.EcommerceMindhub.controllers;
 
 import com.example.EcommerceMindhub.dtos.BillDTO;
+import com.example.EcommerceMindhub.models.Bill;
 import com.example.EcommerceMindhub.models.Client;
+import com.example.EcommerceMindhub.models.PurchaseOrder;
 import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.BillRepository;
 import com.example.EcommerceMindhub.repositories.ClientRepository;
+import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,6 +29,8 @@ public class BillController {
     private ShoppingCartRepository shoppingCartRepository;
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private PurchaseOrRepository purchaseOrRepository;
 
     @GetMapping("/bills")
     public List<BillDTO> findAll() {
@@ -37,7 +44,15 @@ public class BillController {
     @PostMapping("/shoppingCart/current/bills")
     public ResponseEntity<Object> postBillDTO(Authentication authentication){
         Client clientInSession= this.clientRepository.findByEmail(authentication.getName());
-        ShoppingCart newShoppingCart= clientInSession.getShoppingCart();
+        ShoppingCart shoppingCart= clientInSession.getShoppingCart();
+        Bill newBill=new Bill(shoppingCart);
+        billRepository.save(newBill);
+        //Set<PurchaseOrder> purchaseOrders=shoppingCart.getPurchaseOrders();
+        ShoppingCart newShoppingCart= new ShoppingCart(clientInSession);
+        shoppingCartRepository.save(newShoppingCart);
+
+
+
         return new ResponseEntity<>("C", HttpStatus.CREATED);
 
 }

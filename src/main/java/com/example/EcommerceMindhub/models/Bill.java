@@ -1,8 +1,10 @@
 package com.example.EcommerceMindhub.models;
 
+import com.example.EcommerceMindhub.dtos.PurchaseOrderDTO;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Bill {
@@ -16,16 +18,39 @@ public class Bill {
 
     private WayToPayType wayToPay;
 
+    /*@ElementCollection
+    private Set<PurchaseOrder> purchaseOrders;*/
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="shoppingCart_id")
     private ShoppingCart shoppingCart;
-    public Bill(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
+
+
+    private Double allPrices(ShoppingCart shoppingCart){
+        List<Double> prices=shoppingCart.getPurchaseOrders().stream().map(purchaseOrder -> purchaseOrder.getPrice()).collect(Collectors.toList());
+        Double total=0.0;
+        for (Double price : prices) {
+            total=total+price;
+        }
+        return total;
     }
-    public Bill(double priceTotal, ShoppingCart shoppingCart) {
-        this.priceTotal = priceTotal;
+    public Bill(ShoppingCart shoppingCart) {
+        this.priceTotal = this.allPrices(shoppingCart);
         this.createDate = new Date();
         this.shoppingCart = shoppingCart;
+       // this.purchaseOrders=shoppingCart.getPurchaseOrders();
+    }
+
+   /* public Set<PurchaseOrder> getPurchaseOrders() {
+        return purchaseOrders;
+    }
+
+    public void setPurchaseOrders(Set<PurchaseOrder> purchaseOrders) {
+        this.purchaseOrders = purchaseOrders;
+    }
+*/
+
+    public Bill() {
     }
 
     public double getPriceTotal() {
@@ -52,4 +77,8 @@ public class Bill {
     public void setId(Long id) {
         this.id = id;
     }
+
+   /* public List<PurchaseOrderDTO> getPurchaseOrders() {
+        return purchaseOrders;
+    }*/
 }

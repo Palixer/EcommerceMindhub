@@ -1,5 +1,6 @@
 package com.example.EcommerceMindhub.dtos;
 
+import com.example.EcommerceMindhub.models.Bill;
 import com.example.EcommerceMindhub.models.Client;
 import com.example.EcommerceMindhub.models.ShoppingCart;
 
@@ -12,7 +13,7 @@ public class ClientDTO {
 
     private ShoppingCartDTO shoppingCart;
 
-    private PurchaseOrderDTO purchaseOrder;
+
     public ClientDTO(Client client) {
         this.id = client.getId();
         this.firstName = client.getFirstName();
@@ -20,7 +21,7 @@ public class ClientDTO {
         this.email = client.getEmail();
         this.address = client.getAddress();
         this.shoppingCart= new ShoppingCartDTO(client.getShoppingCart());
-        this.purchaseOrder=(new ShoppingCartDTO(client.getShoppingCart())).getPurchaseOrders();
+
 
     }
 
