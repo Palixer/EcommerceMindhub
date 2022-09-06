@@ -16,4 +16,8 @@ public class ShoppingCartDTO {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public PurchaseOrderDTO getPurchaseOrders() {
+        return new PurchaseOrderDTO();
+    }
 }

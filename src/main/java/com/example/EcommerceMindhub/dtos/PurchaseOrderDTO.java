@@ -9,11 +9,16 @@ public class PurchaseOrderDTO {
     private double price;
     private int quantity;
 
+    private ShoppingCart shoppingCart;
 
     public PurchaseOrderDTO(PurchaseOrder purchaseOrder) {
         this.id = purchaseOrder.getId();
         this.price = purchaseOrder.getPrice();
         this.quantity = purchaseOrder.getQuantity();
+        this.shoppingCart= purchaseOrder.getShoppingCart();
+    }
+
+    public PurchaseOrderDTO() {
     }
 
     public long getId() {
@@ -39,4 +44,5 @@ public class PurchaseOrderDTO {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }

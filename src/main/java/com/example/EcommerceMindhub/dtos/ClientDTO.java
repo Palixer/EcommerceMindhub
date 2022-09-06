@@ -11,6 +11,8 @@ public class ClientDTO {
     private String address;
 
     private ShoppingCartDTO shoppingCart;
+
+    private PurchaseOrderDTO purchaseOrder;
     public ClientDTO(Client client) {
         this.id = client.getId();
         this.firstName = client.getFirstName();
@@ -18,6 +20,8 @@ public class ClientDTO {
         this.email = client.getEmail();
         this.address = client.getAddress();
         this.shoppingCart= new ShoppingCartDTO(client.getShoppingCart());
+        this.purchaseOrder=(new ShoppingCartDTO(client.getShoppingCart())).getPurchaseOrders();
+
     }
 
     public Long getId() {
