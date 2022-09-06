@@ -57,10 +57,11 @@ public class ClientController {
         }
 
         Client newClient=new Client(firstName, lastName, email, address, password);
+        clientRepository.save(newClient);
+
 
         ShoppingCart newShoppingCart = new ShoppingCart(newClient);
         shoppingCartRepository.save(newShoppingCart);
-        clientRepository.save(newClient);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
    }

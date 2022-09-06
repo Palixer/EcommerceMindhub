@@ -1,7 +1,6 @@
 package com.example.EcommerceMindhub.controllers;
 
 import com.example.EcommerceMindhub.dtos.BillDTO;
-import com.example.EcommerceMindhub.dtos.ShoppingCartDTO;
 import com.example.EcommerceMindhub.models.Client;
 import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.BillRepository;

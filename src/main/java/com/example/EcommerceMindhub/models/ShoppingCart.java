@@ -17,6 +17,10 @@ public class ShoppingCart {
         this.client=client;
 
     }
+
+    public ShoppingCart() {
+    }
+
     @OneToMany(mappedBy="shoppingCart", fetch=FetchType.EAGER)
     Set<Bill> bills = new HashSet<>();
     @OneToMany(mappedBy="shoppingCart", fetch=FetchType.EAGER)

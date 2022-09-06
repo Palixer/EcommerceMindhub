@@ -10,14 +10,14 @@ public class ClientDTO {
     private String email;
     private String address;
 
-    private ShoppingCart shoppingCart;
+    private ShoppingCartDTO shoppingCart;
     public ClientDTO(Client client) {
         this.id = client.getId();
         this.firstName = client.getFirstName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
         this.address = client.getAddress();
-        this.shoppingCart= client.getShoppingCart();
+        this.shoppingCart= new ShoppingCartDTO(client.getShoppingCart());
     }
 
     public Long getId() {
@@ -59,4 +59,13 @@ public class ClientDTO {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public ShoppingCartDTO getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCartDTO shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 }
+
