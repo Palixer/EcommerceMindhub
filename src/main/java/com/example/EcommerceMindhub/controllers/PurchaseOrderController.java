@@ -66,4 +66,12 @@ public class PurchaseOrderController {
         purchaseOrRepository.save(newPurchaseOrder);
         return new ResponseEntity<>("Orden de compra creada",HttpStatus.CREATED);
     }
+
+    @DeleteMapping(path ="/purchaseOrders")
+    public ResponseEntity<Object> deletePurchaseOrder(@RequestParam Long id){
+        purchaseOrRepository.deleteById(id);
+
+        return new ResponseEntity<>("Orden de compra borrada correctamente",HttpStatus.OK);
+
+    }
 }

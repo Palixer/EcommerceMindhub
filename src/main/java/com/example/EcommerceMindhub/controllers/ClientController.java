@@ -64,6 +64,15 @@ public class ClientController {
         shoppingCartRepository.save(newShoppingCart);
         return new ResponseEntity<>("Cliente creado correctamente",HttpStatus.CREATED);
     }
+
+    @DeleteMapping(path ="/clients")
+    public ResponseEntity<Object> deleteClient(@RequestParam Long id){
+        clientRepository.deleteById(id);
+
+        return new ResponseEntity<>("Cliente Borrado correctamente",HttpStatus.OK);
+
+    }
+
    }
 
 

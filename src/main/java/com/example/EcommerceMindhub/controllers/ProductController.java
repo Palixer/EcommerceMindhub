@@ -41,5 +41,13 @@ public class ProductController {
         productRepository.save(newProduct);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping(path ="/products")
+    public ResponseEntity<Object> deleteProduct(@RequestParam Long id){
+        productRepository.deleteById(id);
+
+        return new ResponseEntity<>("Producto Borrado correctamente",HttpStatus.OK);
+
+    }
 }
 
