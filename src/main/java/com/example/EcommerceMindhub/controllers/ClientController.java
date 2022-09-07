@@ -62,7 +62,7 @@ public class ClientController {
 
         ShoppingCart newShoppingCart = new ShoppingCart(newClient);
         shoppingCartRepository.save(newShoppingCart);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Cliente creado correctamente",HttpStatus.CREATED);
     }
    }
 

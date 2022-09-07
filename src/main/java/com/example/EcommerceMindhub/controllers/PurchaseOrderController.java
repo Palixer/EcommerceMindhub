@@ -58,8 +58,12 @@ public class PurchaseOrderController {
             return new ResponseEntity<>("El nombre no existe", HttpStatus.FORBIDDEN);
         }
 
+        if (quantity>productFind.getStock()){
+            return new ResponseEntity<>("No podés comprar más del stock", HttpStatus.FORBIDDEN);
+        }
+
         PurchaseOrder newPurchaseOrder = new PurchaseOrder(quantity, productFind.getPrice()*quantity, clientInSession.getShoppingCart(), productFind );
         purchaseOrRepository.save(newPurchaseOrder);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Orden de compra creada",HttpStatus.CREATED);
     }
 }

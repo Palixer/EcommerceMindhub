@@ -40,7 +40,7 @@ public class ShoppingCartController {
     public ResponseEntity<Object> postShoppingCartDTO(Authentication authentication) {
         Client clientInSession = this.clientRepository.findByEmail(authentication.getName());
         ShoppingCart newShoppingCart = clientInSession.getShoppingCart();
-        return new ResponseEntity<>("C", HttpStatus.CREATED);
+        return new ResponseEntity<>("Carrito Creado", HttpStatus.CREATED);
     }
 
 
