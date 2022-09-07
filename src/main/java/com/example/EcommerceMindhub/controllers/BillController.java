@@ -2,20 +2,15 @@ package com.example.EcommerceMindhub.controllers;
 
 import com.example.EcommerceMindhub.dtos.BillDTO;
 import com.example.EcommerceMindhub.dtos.PurchaseOrderDTO;
-import com.example.EcommerceMindhub.models.Bill;
-import com.example.EcommerceMindhub.models.Client;
-import com.example.EcommerceMindhub.models.PurchaseOrder;
-import com.example.EcommerceMindhub.models.ShoppingCart;
-import com.example.EcommerceMindhub.repositories.BillRepository;
-import com.example.EcommerceMindhub.repositories.ClientRepository;
-import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
-import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
+import com.example.EcommerceMindhub.models.*;
+import com.example.EcommerceMindhub.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +27,9 @@ public class BillController {
     private ClientRepository clientRepository;
     @Autowired
     private PurchaseOrRepository purchaseOrRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/bills")
     public List<BillDTO> findAll() {
@@ -55,7 +53,15 @@ public class BillController {
         Bill newBill=new Bill(shoppingCart);
         billRepository.save(newBill);
 
-        List<PurchaseOrderDTO> purchaseOrders= shoppingCart.getPurchaseOrders().stream().map(purchaseOrder -> new PurchaseOrderDTO(purchaseOrder)).collect(Collectors.toList());
+        Set<PurchaseOrder> purchaseOrders= shoppingCart.getPurchaseOrders();
+
+
+
+        purchaseOrders.forEach(purchaseOrder -> {
+            Product product = purchaseOrder.getProduct();
+            product.setStock(purchaseOrder.getQuantity()-product.getStock());
+            productRepository.save(product);
+        });
 
 
 
@@ -65,4 +71,5 @@ public class BillController {
         return new ResponseEntity<>("Factura Creada", HttpStatus.CREATED);
 
 }
+
 }
