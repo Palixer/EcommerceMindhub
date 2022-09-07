@@ -101,4 +101,7 @@ public class Client {
                 ", email='" + email + '\'' +
                 '}';
     }
- }
+
+    public void add(ShoppingCart shoppingCart) {
+    }
+}

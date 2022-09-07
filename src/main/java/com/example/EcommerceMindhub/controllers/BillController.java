@@ -1,6 +1,7 @@
 package com.example.EcommerceMindhub.controllers;
 
 import com.example.EcommerceMindhub.dtos.BillDTO;
+import com.example.EcommerceMindhub.dtos.PurchaseOrderDTO;
 import com.example.EcommerceMindhub.models.Bill;
 import com.example.EcommerceMindhub.models.Client;
 import com.example.EcommerceMindhub.models.PurchaseOrder;
@@ -45,15 +46,23 @@ public class BillController {
     public ResponseEntity<Object> postBillDTO(Authentication authentication){
         Client clientInSession= this.clientRepository.findByEmail(authentication.getName());
         ShoppingCart shoppingCart= clientInSession.getShoppingCart();
+
+
+        if (shoppingCart.getPurchaseOrders().isEmpty()){
+            return new ResponseEntity<>("No tienes ordenes de compra para facturar", HttpStatus.FORBIDDEN);
+        }
+
         Bill newBill=new Bill(shoppingCart);
         billRepository.save(newBill);
-        //Set<PurchaseOrder> purchaseOrders=shoppingCart.getPurchaseOrders();
-        ShoppingCart newShoppingCart= new ShoppingCart(clientInSession);
-        shoppingCartRepository.save(newShoppingCart);
+
+        List<PurchaseOrderDTO> purchaseOrders= shoppingCart.getPurchaseOrders().stream().map(purchaseOrder -> new PurchaseOrderDTO(purchaseOrder)).collect(Collectors.toList());
 
 
 
-        return new ResponseEntity<>("C", HttpStatus.CREATED);
+        purchaseOrRepository.deleteAll(clientInSession.getShoppingCart().getPurchaseOrders());
+        clientRepository.save(clientInSession);
+
+        return new ResponseEntity<>("Factura Creada", HttpStatus.CREATED);
 
 }
 }

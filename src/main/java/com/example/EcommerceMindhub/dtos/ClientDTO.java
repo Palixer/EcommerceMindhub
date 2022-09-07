@@ -4,6 +4,9 @@ import com.example.EcommerceMindhub.models.Bill;
 import com.example.EcommerceMindhub.models.Client;
 import com.example.EcommerceMindhub.models.ShoppingCart;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class ClientDTO {
     private Long id;
     private String firstName;
@@ -12,7 +15,7 @@ public class ClientDTO {
     private String address;
 
     private ShoppingCartDTO shoppingCart;
-
+    private Set<BillDTO> billDTO;
 
     public ClientDTO(Client client) {
         this.id = client.getId();
@@ -21,8 +24,17 @@ public class ClientDTO {
         this.email = client.getEmail();
         this.address = client.getAddress();
         this.shoppingCart= new ShoppingCartDTO(client.getShoppingCart());
+        this.billDTO= client.getShoppingCart().getBills().stream().map(bill -> new BillDTO(bill)).collect(Collectors.toSet());
 
 
+    }
+
+    public Set<BillDTO> getBillDTO() {
+        return billDTO;
+    }
+
+    public void setBillDTO(Set<BillDTO> billDTO) {
+        this.billDTO = billDTO;
     }
 
     public Long getId() {

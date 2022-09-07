@@ -59,14 +59,7 @@ public class EcommerceMindhubApplication {
 			shoppingCartRepositories.save(carrito3);
 			shoppingCartRepositories.save(carrito4);
 
-			PurchaseOrder purchaseOrder1= new PurchaseOrder(2, 200*2, client1.getShoppingCart(), product1);
-			PurchaseOrder purchaseOrder2=new PurchaseOrder(1,12.11,carrito2,product1);
-			PurchaseOrder purchaseOrder3=new PurchaseOrder(3,11.22,carrito2,product2);
-			PurchaseOrder purchaseOrder4=new PurchaseOrder(1,10.00,carrito3,product3);
-			purchaseOrRepository.save(purchaseOrder1);
-			purchaseOrRepository.save(purchaseOrder2);
-			purchaseOrRepository.save(purchaseOrder3);
-			purchaseOrRepository.save(purchaseOrder4);
+
 
 
 		};

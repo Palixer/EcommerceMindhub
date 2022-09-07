@@ -23,7 +23,7 @@ public class ShoppingCart {
 
     @OneToMany(mappedBy="shoppingCart", fetch=FetchType.EAGER)
     Set<Bill> bills = new HashSet<>();
-    @OneToMany(mappedBy="shoppingCart", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="shoppingCart", fetch=FetchType.LAZY)
     Set<PurchaseOrder> purchaseOrders = new HashSet<>();
     @OneToOne
     @JoinColumn(name="client_id")

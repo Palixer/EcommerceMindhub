@@ -20,7 +20,7 @@ public class PurchaseOrder {
     private Date creationDate;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="shoppingCart_id")
     private ShoppingCart shoppingCart;
     @ManyToOne(fetch = FetchType.EAGER)

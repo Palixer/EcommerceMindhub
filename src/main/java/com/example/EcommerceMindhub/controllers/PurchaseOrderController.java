@@ -41,7 +41,7 @@ public class PurchaseOrderController {
 
     public ResponseEntity<Object> createPurchaseOrder(
 
-            @RequestParam String name, @RequestParam Integer quantity, @RequestParam Double price, Authentication authentication)
+            @RequestParam String name, @RequestParam Integer quantity, Authentication authentication)
 
            {
                Client clientInSession = this.clientRepository.findByEmail(authentication.getName());
@@ -53,12 +53,13 @@ public class PurchaseOrderController {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
-        if (productRepository.findByName(name) !=  null) {
+        if (productRepository.findByName(name) ==  null) {
 
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("El nombre no existe", HttpStatus.FORBIDDEN);
         }
-               PurchaseOrder newPurchaseOrder = new PurchaseOrder(quantity, price, clientInSession.getShoppingCart(), productFind );
+
+        PurchaseOrder newPurchaseOrder = new PurchaseOrder(quantity, productFind.getPrice()*quantity, clientInSession.getShoppingCart(), productFind );
         purchaseOrRepository.save(newPurchaseOrder);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
