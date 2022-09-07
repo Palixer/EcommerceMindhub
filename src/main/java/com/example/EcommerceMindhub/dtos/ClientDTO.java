@@ -26,7 +26,6 @@ public class ClientDTO {
         this.shoppingCart= new ShoppingCartDTO(client.getShoppingCart());
         this.billDTO= client.getShoppingCart().getBills().stream().map(bill -> new BillDTO(bill)).collect(Collectors.toSet());
 
-
     }
 
     public Set<BillDTO> getBillDTO() {
