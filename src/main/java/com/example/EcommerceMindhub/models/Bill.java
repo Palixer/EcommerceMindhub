@@ -26,10 +26,10 @@ public class Bill {
     private ShoppingCart shoppingCart;
 
 
-    private Double allPrices(ShoppingCart shoppingCart){
+    private double allPrices(ShoppingCart shoppingCart){
         List<Double> prices=shoppingCart.getPurchaseOrders().stream().map(purchaseOrder -> purchaseOrder.getPrice()).collect(Collectors.toList());
-        Double total=0.0;
-        for (Double price : prices) {
+        double total=0.0;
+        for (double price : prices) {
             total=total+price;
         }
         return total;

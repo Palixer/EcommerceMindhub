@@ -27,7 +27,6 @@ public class ShoppingCartController {
     }
     @GetMapping("/shoppingCart/{id}")
     public ShoppingCartDTO getShoppingCartById (@PathVariable Long id){
-
         return shoppingCartRepository.findById(id).map(ShoppingCartDTO::new).orElse(null);
     }
     @GetMapping("/clients/current/shoppingCart")
