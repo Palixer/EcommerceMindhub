@@ -34,10 +34,12 @@ public class Bill {
         }
         return total;
     }
-    public Bill(ShoppingCart shoppingCart) {
+    public Bill(ShoppingCart shoppingCart, WayToPayType wayToPayType) {
         this.priceTotal = this.allPrices(shoppingCart);
         this.createDate = new Date();
         this.shoppingCart = shoppingCart;
+        this.wayToPay = wayToPayType;
+
        // this.purchaseOrders=shoppingCart.getPurchaseOrders();
     }
 
@@ -78,7 +80,14 @@ public class Bill {
         this.id = id;
     }
 
-   /* public List<PurchaseOrderDTO> getPurchaseOrders() {
+    public WayToPayType getWayToPay() {
+        return wayToPay;
+    }
+
+    public void setWayToPay(WayToPayType wayToPay) {
+        this.wayToPay = wayToPay;
+    }
+    /* public List<PurchaseOrderDTO> getPurchaseOrders() {
         return purchaseOrders;
     }*/
 }
