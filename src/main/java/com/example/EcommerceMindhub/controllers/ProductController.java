@@ -4,6 +4,7 @@ import com.example.EcommerceMindhub.dtos.ProductDTO;
 import com.example.EcommerceMindhub.models.Product;
 import com.example.EcommerceMindhub.repositories.ProductRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
+import com.example.EcommerceMindhub.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +20,17 @@ public class ProductController {
     private ProductRepository productRepository;
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/products")
     public List<ProductDTO> findAll() {
-        return productRepository.findAll().stream().map(product -> new ProductDTO(product)).collect(Collectors.toList());
+        return productService.findAll();
     }
 
     @GetMapping("/products/{id}")
     public ProductDTO getProductById(@PathVariable Long id) {
-        return productRepository.findById(id).map(ProductDTO::new).orElse(null);
+        return productService.getProductById(id);
     }
 
     @PostMapping("/products/newProducts")
@@ -38,7 +41,7 @@ public class ProductController {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
         Product newProduct = new Product(name, price, stock);
-        productRepository.save(newProduct);
+        productService.createProduct(newProduct);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @DeleteMapping(path ="/products")
@@ -48,7 +51,7 @@ public class ProductController {
             return new ResponseEntity<>("El producto no existe", HttpStatus.FORBIDDEN);
 
         }
-        productRepository.delete(findProduct);
+        productService.deleteProduct(findProduct);
 
         return new ResponseEntity<>("Producto Borrado correctamente",HttpStatus.OK);
 

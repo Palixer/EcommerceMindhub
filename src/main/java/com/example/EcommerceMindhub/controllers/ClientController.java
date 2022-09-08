@@ -7,6 +7,7 @@ import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.ClientRepository;
 import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
+import com.example.EcommerceMindhub.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+
 @RestController
 @RequestMapping("/api")
 public class ClientController {
@@ -28,21 +31,24 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private PurchaseOrRepository purchaseOrRepository;
+
+    @Autowired
+    private ClientService clientService;
+
     @RequestMapping("/clients")
     public List<ClientDTO> findAll() {
-        return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
+        return clientService.findAll();
     }
     @RequestMapping("/clients/{id}")
     public ClientDTO getClientById (@PathVariable Long id){
 
-        return clientRepository.findById(id).map(ClientDTO::new).orElse(null);
+        return clientService.getClientById(id);
     }
     @GetMapping("/clients/current")
     public ClientDTO getClient(Authentication authentication){
-        Client client = this.clientRepository.findByEmail(authentication.getName());
-
-        return new ClientDTO(client);
+        return clientService.getClient(authentication);
     }
+
     @PostMapping(path = "/clients")
 
     public ResponseEntity<Object> createClient(
@@ -56,17 +62,19 @@ public class ClientController {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
-        if (clientRepository.findByEmail(email) !=  null) {
+        if (clientService.findByEmail(email) !=  null) {
 
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
 
         Client newClient=new Client(firstName, lastName, email, address, passwordEncoder.encode(password));
-        clientRepository.save(newClient);
-
 
         ShoppingCart newShoppingCart = new ShoppingCart(newClient);
+
+        clientService.createNewClient(newClient,newShoppingCart);
+
         shoppingCartRepository.save(newShoppingCart);
+
         return new ResponseEntity<>("Cliente creado correctamente",HttpStatus.CREATED);
     }
 
@@ -79,8 +87,9 @@ public class ClientController {
         if (!ordenesEncontradas.isEmpty()){
             purchaseOrRepository.deleteAll(ordenesEncontradas);}
 
+        ShoppingCart shoppingCartFind = clientFind.getShoppingCart();
         shoppingCartRepository.deleteById(id);
-        clientRepository.deleteById(id);
+        clientService.deleteClient(clientFind, shoppingCartFind);
 
 
 
