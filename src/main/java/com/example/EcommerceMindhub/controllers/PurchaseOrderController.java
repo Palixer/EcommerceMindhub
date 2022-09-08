@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -69,6 +70,13 @@ public class PurchaseOrderController {
 
     @DeleteMapping(path ="/purchaseOrders")
     public ResponseEntity<Object> deletePurchaseOrder(@RequestParam Long id){
+        Client clientFind = clientRepository.findById(id).orElse(null);
+        if (clientFind==null){
+            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
+        Set<PurchaseOrder> ordenesEncontradas= clientFind.getShoppingCart().getPurchaseOrders();
+        if (!ordenesEncontradas.isEmpty()){
+            purchaseOrRepository.deleteById(id);}
+
         purchaseOrRepository.deleteById(id);
 
         return new ResponseEntity<>("Orden de compra borrada correctamente",HttpStatus.OK);

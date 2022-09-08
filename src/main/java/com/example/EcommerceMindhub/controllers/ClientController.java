@@ -2,8 +2,10 @@ package com.example.EcommerceMindhub.controllers;
 
 import com.example.EcommerceMindhub.dtos.ClientDTO;
 import com.example.EcommerceMindhub.models.Client;
+import com.example.EcommerceMindhub.models.PurchaseOrder;
 import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.ClientRepository;
+import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
@@ -23,6 +26,8 @@ public class ClientController {
     private ShoppingCartRepository shoppingCartRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PurchaseOrRepository purchaseOrRepository;
     @RequestMapping("/clients")
     public List<ClientDTO> findAll() {
         return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
@@ -56,7 +61,7 @@ public class ClientController {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
 
-        Client newClient=new Client(firstName, lastName, email, address, password);
+        Client newClient=new Client(firstName, lastName, email, address, passwordEncoder.encode(password));
         clientRepository.save(newClient);
 
 
@@ -67,7 +72,17 @@ public class ClientController {
 
     @DeleteMapping(path ="/clients")
     public ResponseEntity<Object> deleteClient(@RequestParam Long id){
+        Client clientFind = clientRepository.findById(id).orElse(null);
+        if (clientFind==null){
+            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
+        Set<PurchaseOrder> ordenesEncontradas= clientFind.getShoppingCart().getPurchaseOrders();
+        if (!ordenesEncontradas.isEmpty()){
+            purchaseOrRepository.deleteAll(ordenesEncontradas);}
+
+        shoppingCartRepository.deleteById(id);
         clientRepository.deleteById(id);
+
+
 
         return new ResponseEntity<>("Cliente Borrado correctamente",HttpStatus.OK);
 

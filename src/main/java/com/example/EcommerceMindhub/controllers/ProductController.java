@@ -41,13 +41,18 @@ public class ProductController {
         productRepository.save(newProduct);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
     @DeleteMapping(path ="/products")
-    public ResponseEntity<Object> deleteProduct(@RequestParam Long id){
-        productRepository.deleteById(id);
+    public ResponseEntity<Object> deleteProduct(@RequestParam String name){
+        Product findProduct= productRepository.findByName(name);
+        if (findProduct==null){
+            return new ResponseEntity<>("El producto no existe", HttpStatus.FORBIDDEN);
+
+        }
+        productRepository.delete(findProduct);
 
         return new ResponseEntity<>("Producto Borrado correctamente",HttpStatus.OK);
 
     }
+
 }
 
