@@ -1,23 +1,17 @@
 package com.example.EcommerceMindhub.controllers;
 
 import com.example.EcommerceMindhub.dtos.ClientDTO;
-import com.example.EcommerceMindhub.models.Client;
-import com.example.EcommerceMindhub.models.PurchaseOrder;
-import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.ClientRepository;
 import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
 import com.example.EcommerceMindhub.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
-
 
 
 @RestController
@@ -31,6 +25,7 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private PurchaseOrRepository purchaseOrRepository;
+
 
     @Autowired
     private ClientService clientService;

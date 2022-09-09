@@ -6,6 +6,7 @@ import com.example.EcommerceMindhub.repositories.ProductRepository;
 import com.example.EcommerceMindhub.repositories.ShoppingCartRepository;
 import com.example.EcommerceMindhub.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -7,6 +7,7 @@ import com.example.EcommerceMindhub.models.PurchaseOrder;
 import com.example.EcommerceMindhub.repositories.ClientRepository;
 import com.example.EcommerceMindhub.repositories.ProductRepository;
 import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
+import com.example.EcommerceMindhub.services.ProductService;
 import com.example.EcommerceMindhub.services.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class PurchaseOrderImplement implements PurchaseOrderService {
+public class PurchaseOrderServiceImplement implements PurchaseOrderService {
 
     @Autowired
     private PurchaseOrRepository purchaseOrRepository;
@@ -27,6 +28,8 @@ public class PurchaseOrderImplement implements PurchaseOrderService {
     private ClientRepository clientRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ProductService productService;
 
     @Override
     public List<PurchaseOrderDTO> findAll() {
@@ -62,6 +65,9 @@ public class PurchaseOrderImplement implements PurchaseOrderService {
 
         PurchaseOrder newPurchaseOrder = new PurchaseOrder(quantity, productFind.getPrice() * quantity, clientInSession.getShoppingCart(), productFind);
         purchaseOrRepository.save(newPurchaseOrder);
+
+
+
         return new ResponseEntity<>("Orden de compra creada", HttpStatus.CREATED);
     }
 

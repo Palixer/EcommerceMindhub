@@ -4,6 +4,7 @@ import com.example.EcommerceMindhub.dtos.BillDTO;
 import com.example.EcommerceMindhub.models.*;
 import com.example.EcommerceMindhub.repositories.*;
 import com.example.EcommerceMindhub.services.BillService;
+import com.example.EcommerceMindhub.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,8 @@ public class BillServiceImplement implements BillService {
     private PurchaseOrRepository purchaseOrRepository;
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private ProductService productService;
 
     @Override
     public List<BillDTO> findAll() {
@@ -48,16 +51,25 @@ public class BillServiceImplement implements BillService {
         Bill newBill = new Bill(shoppingCart, WayToPayType.CASH);
         billRepository.save(newBill);
 
+
         Set<PurchaseOrder> purchaseOrders= shoppingCart.getPurchaseOrders();
 
         purchaseOrders.forEach(purchaseOrder -> {
             Product product = purchaseOrder.getProduct();
             product.setStock(purchaseOrder.getQuantity()-product.getStock());
             productRepository.save(product);
+
         });
 
 
         purchaseOrRepository.deleteAll(clientInSession.getShoppingCart().getPurchaseOrders());
+        purchaseOrders.forEach(purchaseOrder -> {
+            Product product = purchaseOrder.getProduct();
+            if(product.getStock() == 0){
+                productService.deleteProduct(product.getName());
+            }
+
+        });
         clientRepository.save(clientInSession);
 
 

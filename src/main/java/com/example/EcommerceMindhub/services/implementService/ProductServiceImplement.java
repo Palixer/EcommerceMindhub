@@ -40,18 +40,19 @@ public class ProductServiceImplement implements ProductService {
         if (name.isEmpty() || price <= 0.0 || stock <= 0) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
-        productService.createProduct(name, price, stock);
+        Product product = new Product(name, price, stock);
+        productRepository.save(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Object> deleteProduct(String name) {
         Product findProduct= productRepository.findByName(name);
+
         if (findProduct==null){
             return new ResponseEntity<>("El producto no existe", HttpStatus.FORBIDDEN);
-
         }
-        productService.deleteProduct(name);
+        productRepository.delete(findProduct);
 
         return new ResponseEntity<>("Producto Borrado correctamente",HttpStatus.OK);
     }

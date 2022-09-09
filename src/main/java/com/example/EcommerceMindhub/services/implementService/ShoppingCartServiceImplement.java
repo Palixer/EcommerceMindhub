@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class ShoppingCartImplement implements ShoppingCartService {
+public class ShoppingCartServiceImplement implements ShoppingCartService {
 
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
