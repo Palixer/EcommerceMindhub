@@ -9,6 +9,7 @@ import com.example.EcommerceMindhub.models.ShoppingCart;
 import com.example.EcommerceMindhub.repositories.ClientRepository;
 import com.example.EcommerceMindhub.repositories.ProductRepository;
 import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
+import com.example.EcommerceMindhub.services.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,56 +31,30 @@ public class PurchaseOrderController {
     private ProductRepository productRepository;
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private PurchaseOrderService purchaseOrderService;
+
     @GetMapping("/purchaseOrders")
     public List<PurchaseOrderDTO> findAll() {
-        return purchaseOrRepository.findAll().stream().map(purchaseOrder -> new PurchaseOrderDTO(purchaseOrder)).collect(Collectors.toList());
+        return purchaseOrderService.findAll();
     }
+
     @GetMapping("/purchaseOrders/{id}")
     public PurchaseOrderDTO getPurchaseOrderById(@PathVariable Long id) {
-        return purchaseOrRepository.findById(id).map(PurchaseOrderDTO::new).orElse(null);
+        return purchaseOrderService.getPurchaseOrderById(id);
     }
+
     @PostMapping(path = "/purchaseOrders")
 
     public ResponseEntity<Object> createPurchaseOrder(
 
-            @RequestParam String name, @RequestParam Integer quantity, Authentication authentication)
-
-           {
-               Client clientInSession = this.clientRepository.findByEmail(authentication.getName());
-        Product productFind = productRepository.findByName(name);
-
-
-        if (name.isEmpty() || quantity <=0) {
-
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-        }
-
-        if (productRepository.findByName(name) ==  null) {
-
-            return new ResponseEntity<>("El nombre no existe", HttpStatus.FORBIDDEN);
-        }
-
-        if (quantity>productFind.getStock()){
-            return new ResponseEntity<>("No podés comprar más del stock", HttpStatus.FORBIDDEN);
-        }
-
-        PurchaseOrder newPurchaseOrder = new PurchaseOrder(quantity, productFind.getPrice()*quantity, clientInSession.getShoppingCart(), productFind );
-        purchaseOrRepository.save(newPurchaseOrder);
-        return new ResponseEntity<>("Orden de compra creada",HttpStatus.CREATED);
+            @RequestParam String name, @RequestParam Integer quantity, Authentication authentication) {
+        return purchaseOrderService.createPurchaseOrder(name, quantity, authentication);
     }
 
-    @DeleteMapping(path ="/purchaseOrders")
-    public ResponseEntity<Object> deletePurchaseOrder(@RequestParam Long id){
-        Client clientFind = clientRepository.findById(id).orElse(null);
-        if (clientFind==null){
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
-        Set<PurchaseOrder> ordenesEncontradas= clientFind.getShoppingCart().getPurchaseOrders();
-        if (!ordenesEncontradas.isEmpty()){
-            purchaseOrRepository.deleteById(id);}
-
-        purchaseOrRepository.deleteById(id);
-
-        return new ResponseEntity<>("Orden de compra borrada correctamente",HttpStatus.OK);
+    @DeleteMapping(path = "/purchaseOrders")
+    public ResponseEntity<Object> deletePurchaseOrder(@RequestParam Long id) {
+        return purchaseOrderService.deletePurchaseOrder(id);
 
     }
 }
