@@ -17,9 +17,9 @@ public interface ClientService {
     ClientDTO getClientById(Long id);
     ClientDTO getClient(Authentication authentication);
 
-    ResponseEntity<Object> createNewClient(Client newClient, ShoppingCart shoppingCart);
+    ResponseEntity<Object> createNewClient(String firstName, String lastName, String email, String address, String password);
 
-    ResponseEntity<Object> deleteClient(Client clientFind, ShoppingCart shoppingCartFind);
+    ResponseEntity<Object> deleteClient(Long id);
 
     ClientDTO findByEmail(String email);
 }

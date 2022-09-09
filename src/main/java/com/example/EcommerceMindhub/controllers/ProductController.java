@@ -36,24 +36,12 @@ public class ProductController {
     @PostMapping("/products/newProducts")
     public ResponseEntity<Object> createProduct(
             @RequestParam String name, @RequestParam double price, @RequestParam int stock) {
+            return productService.createProduct(name, price, stock);
 
-        if (name.isEmpty() || price <= 0.0 || stock <= 0) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-        }
-        Product newProduct = new Product(name, price, stock);
-        productService.createProduct(newProduct);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @DeleteMapping(path ="/products")
     public ResponseEntity<Object> deleteProduct(@RequestParam String name){
-        Product findProduct= productRepository.findByName(name);
-        if (findProduct==null){
-            return new ResponseEntity<>("El producto no existe", HttpStatus.FORBIDDEN);
-
-        }
-        productService.deleteProduct(findProduct);
-
-        return new ResponseEntity<>("Producto Borrado correctamente",HttpStatus.OK);
+        return productService.deleteProduct(name);
 
     }
 

@@ -17,9 +17,9 @@ public interface ProductService {
 
     Product findByName(String name);
 
-    ResponseEntity<Object> createProduct(Product newProduct);
+    ResponseEntity<Object> createProduct(String name, double price, int stock);
 
-    ResponseEntity<Object> deleteProduct(Product productFind);
+    ResponseEntity<Object> deleteProduct(String name);
 
 
 }

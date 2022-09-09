@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 
 @RestController
@@ -37,6 +37,7 @@ public class ClientController {
 
     @RequestMapping("/clients")
     public List<ClientDTO> findAll() {
+
         return clientService.findAll();
     }
     @RequestMapping("/clients/{id}")
@@ -46,6 +47,7 @@ public class ClientController {
     }
     @GetMapping("/clients/current")
     public ClientDTO getClient(Authentication authentication){
+
         return clientService.getClient(authentication);
     }
 
@@ -57,44 +59,13 @@ public class ClientController {
 
             @RequestParam String email, @RequestParam String address, @RequestParam String password) throws IOException {
 
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
 
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-        }
-
-        if (clientService.findByEmail(email) !=  null) {
-
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
-        }
-
-        Client newClient=new Client(firstName, lastName, email, address, passwordEncoder.encode(password));
-
-        ShoppingCart newShoppingCart = new ShoppingCart(newClient);
-
-        clientService.createNewClient(newClient,newShoppingCart);
-
-        shoppingCartRepository.save(newShoppingCart);
-
-        return new ResponseEntity<>("Cliente creado correctamente",HttpStatus.CREATED);
+        return clientService.createNewClient(firstName, lastName, email, address, passwordEncoder.encode(password));
     }
 
     @DeleteMapping(path ="/clients")
     public ResponseEntity<Object> deleteClient(@RequestParam Long id){
-        Client clientFind = clientRepository.findById(id).orElse(null);
-        if (clientFind==null){
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
-        Set<PurchaseOrder> ordenesEncontradas= clientFind.getShoppingCart().getPurchaseOrders();
-        if (!ordenesEncontradas.isEmpty()){
-            purchaseOrRepository.deleteAll(ordenesEncontradas);}
-
-        ShoppingCart shoppingCartFind = clientFind.getShoppingCart();
-        shoppingCartRepository.deleteById(id);
-        clientService.deleteClient(clientFind, shoppingCartFind);
-
-
-
-        return new ResponseEntity<>("Cliente Borrado correctamente",HttpStatus.OK);
-
+       return clientService.deleteClient(id);
     }
 
    }
