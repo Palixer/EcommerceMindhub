@@ -21,5 +21,5 @@ public interface ClientService {
 
     ResponseEntity<Object> deleteClient(Long id);
 
-    ClientDTO findByEmail(String email);
+    Client findByEmail(String email);
 }

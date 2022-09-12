@@ -46,7 +46,7 @@ public class PurchaseOrderServiceImplement implements PurchaseOrderService {
     @Override
     public ResponseEntity<Object> createPurchaseOrder(String name, Integer quantity, Authentication authentication) {
         Client clientInSession = this.clientRepository.findByEmail(authentication.getName());
-        Product productFind = productRepository.findByName(name);
+        Product productFind = productRepository.findByName(name.toLowerCase());
 
 
         if (name.isEmpty() || quantity <= 0) {
@@ -54,7 +54,7 @@ public class PurchaseOrderServiceImplement implements PurchaseOrderService {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
-        if (productRepository.findByName(name) == null) {
+        if (productRepository.findByName(name.toLowerCase()) == null) {
 
             return new ResponseEntity<>("El nombre no existe", HttpStatus.FORBIDDEN);
         }

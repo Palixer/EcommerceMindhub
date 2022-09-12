@@ -30,7 +30,7 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/clients")
+    @GetMapping("/clients")
     public List<ClientDTO> findAll() {
 
         return clientService.findAll();
@@ -55,7 +55,7 @@ public class ClientController {
             @RequestParam String email, @RequestParam String address, @RequestParam String password) throws IOException {
 
 
-        return clientService.createNewClient(firstName, lastName, email, address, passwordEncoder.encode(password));
+        return clientService.createNewClient(firstName, lastName, email, address, password);
     }
 
     @DeleteMapping(path ="/clients")

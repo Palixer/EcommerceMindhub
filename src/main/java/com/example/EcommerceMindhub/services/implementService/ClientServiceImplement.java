@@ -51,10 +51,10 @@ public class ClientServiceImplement implements ClientService {
         return new ClientDTO(client);
     }
     @Override
-    public ClientDTO findByEmail(String email) {
+    public Client findByEmail(String email) {
         Client client = this.clientRepository.findByEmail(email);
 
-        return new ClientDTO(client);
+        return client ;
     }
 
     @Override
@@ -71,9 +71,9 @@ public class ClientServiceImplement implements ClientService {
 
         Client newClient=new Client(firstName, lastName, email, address, passwordEncoder.encode(password));
 
-        ShoppingCart newShoppingCart = new ShoppingCart(newClient);
+        clientRepository.save(newClient);
 
-        clientService.createNewClient(firstName, lastName, email, address, password);
+        ShoppingCart newShoppingCart = new ShoppingCart(newClient);
 
         shoppingCartRepository.save(newShoppingCart);
 

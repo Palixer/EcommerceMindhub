@@ -37,10 +37,18 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public ResponseEntity<Object> createProduct(String name, double price, int stock) {
+
         if (name.isEmpty() || price <= 0.0 || stock <= 0) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
-        Product product = new Product(name, price, stock);
+
+        Product productoEncontrado = productRepository.findByName(name.toLowerCase());
+       if (productoEncontrado !=  null) {
+               return new ResponseEntity<>("El producto ya existe.", HttpStatus.FORBIDDEN);
+        }
+
+
+        Product product = new Product(name.toLowerCase(), price, stock);
         productRepository.save(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
