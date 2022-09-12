@@ -90,8 +90,8 @@ public class ClientServiceImplement implements ClientService {
             purchaseOrRepository.deleteAll(ordenesEncontradas);}
 
         ShoppingCart shoppingCartFind = clientFind.getShoppingCart();
-        shoppingCartRepository.deleteById(id);
-        clientService.deleteClient(id);
+        shoppingCartRepository.delete(shoppingCartFind);
+        clientRepository.delete(clientFind);
 
 
 
