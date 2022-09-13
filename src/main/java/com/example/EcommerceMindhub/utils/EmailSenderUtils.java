@@ -18,9 +18,9 @@ public class EmailSenderUtils {
 
                 emailSenderService.sendEmail(toEmail,
                         "Tenés una compra pendiente!",
-                        "Hola!, hemos detectado que tenés productos en tu carrito de compras. Finalizá tu compra y llevate un 10% de descuento!");
+                        "Hola!, hemos detectado que tenés productos en tu carrito de compras." +
+                                " Finalizá tu compra y llevate un 10% de descuento!");
             }
-
         };
         Timer timer = new Timer();
         timer.schedule(task, 10000);

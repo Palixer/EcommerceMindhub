@@ -43,9 +43,9 @@ public class EcommerceMindhubApplication {
 			productRepository.save(product3);
 
 			Client client1=new Client("Lucia", "Saederup", "luciasaederup@gmail.com", "Av. Siempre Viva 123", passwordEncoder.encode("1234"));
-			Client client2=new Client("Gabriel", "Cuello", "gabriel@admin.com", "Av. Siempre Viva 130", passwordEncoder.encode("1234"));
-			Client client3=new Client("Ibrian", "Festorazzi", "ibrian@gmail.com", "Av. Siempre Viva 145", passwordEncoder.encode("1234"));
-			Client client4=new Client("Nadia", "Matsumoto", "nadia@gmail.com", "Av. Siempre Viva 150", passwordEncoder.encode("1234"));
+			Client client2=new Client("Gabriel", "Cuello", "cgabrielcuello@gmail.com", "Av. Siempre Viva 130", passwordEncoder.encode("1234"));
+			Client client3=new Client("Ibrian", "Festorazzi", "ibrian_84@hotmail.com", "Av. Siempre Viva 145", passwordEncoder.encode("1234"));
+			Client client4=new Client("Nadia", "Matsumoto", "naistar@gmail.com", "Av. Siempre Viva 150", passwordEncoder.encode("1234"));
 
 
 			clientRepository.save(client1);
