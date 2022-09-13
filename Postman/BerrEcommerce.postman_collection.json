@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "6de65e9e-b5af-48c6-a730-1e59afafda60",
+		"name": "BerrEcommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19083355"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/login?email=gabriel@admin.com&password=1234",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "gabriel@admin.com"
+								},
+								{
+									"key": "password",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Products List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/products",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/products/newProducts?name=CABALLOS&price=100.00&stock=5",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"products",
+								"newProducts"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "CABALLOS"
+								},
+								{
+									"key": "price",
+									"value": "100.00"
+								},
+								{
+									"key": "stock",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/products?name",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Clients List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/clients",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    { \r\n        \"firstName\": \"Juan\",\r\n        \"lastName\": \"Perez\",\r\n        \"email\": \"juan@gmail.com\",\r\n        \"address\": \"Av. Siempre Viva 123\",\r\n        \"password\":\"1234\" \r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/clients?firstName=Felipe&lastName=Filip&email=filip@mail.com&address=Av del churro 123&password=1234",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "Felipe"
+								},
+								{
+									"key": "lastName",
+									"value": "Filip"
+								},
+								{
+									"key": "email",
+									"value": "filip@mail.com"
+								},
+								{
+									"key": "address",
+									"value": "Av del churro 123"
+								},
+								{
+									"key": "password",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shopping Cart",
+			"item": [
+				{
+					"name": "All Carts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/shoppingCarts",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"shoppingCarts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase Order",
+			"item": [
+				{
+					"name": "New PurchaseOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/purchaseOrders?name=Ball&quantity=2",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"purchaseOrders"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Ball"
+								},
+								{
+									"key": "quantity",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Purchase Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/purchaseOrders",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"purchaseOrders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Methods",
+			"item": [
+				{
+					"name": "All Bills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/bills",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"bills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bill Cash Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/shoppingCart/current/bills/payment/cash",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"shoppingCart",
+								"current",
+								"bills",
+								"payment",
+								"cash"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bill Card Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/shoppingCart/current/bills/payment/card?cardNumber=1212121212121212&cvv=123",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"shoppingCart",
+								"current",
+								"bills",
+								"payment",
+								"card"
+							],
+							"query": [
+								{
+									"key": "cardNumber",
+									"value": "1212121212121212"
+								},
+								{
+									"key": "cvv",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase Mail Reminder",
+			"item": [
+				{
+					"name": "Email Reminder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ecommercemindhub.herokuapp.com/api/purchaseReminder",
+							"protocol": "https",
+							"host": [
+								"ecommercemindhub",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"purchaseReminder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
