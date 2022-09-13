@@ -10,6 +10,8 @@ import com.example.EcommerceMindhub.repositories.ClientRepository;
 import com.example.EcommerceMindhub.repositories.ProductRepository;
 import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
 import com.example.EcommerceMindhub.services.PurchaseOrderService;
+import com.example.EcommerceMindhub.services.implementService.EmailSenderService;
+import com.example.EcommerceMindhub.utils.EmailSenderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,8 @@ public class PurchaseOrderController {
     private ClientRepository clientRepository;
     @Autowired
     private PurchaseOrderService purchaseOrderService;
+    @Autowired
+    EmailSenderService emailSenderService;
 
     @GetMapping("/purchaseOrders")
     public List<PurchaseOrderDTO> findAll() {
@@ -55,6 +59,11 @@ public class PurchaseOrderController {
     @DeleteMapping(path = "/purchaseOrders")
     public ResponseEntity<Object> deletePurchaseOrder(@RequestParam Long id) {
         return purchaseOrderService.deletePurchaseOrder(id);
+    }
 
+    @GetMapping("/purchaseReminder")
+    public ResponseEntity<Object> purchaseReminder(Authentication authentication) {
+
+        return purchaseOrderService.purchaseReminder(authentication);
     }
 }

@@ -23,17 +23,19 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //.antMatchers("/web/index.html").permitAll()
                 //.antMatchers("/web/css/", "/web/img/", "/web/js/").permitAll()
-                        .antMatchers(HttpMethod.POST,"api/clients").permitAll()
+                        .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
                         .antMatchers("/h2-console/").hasAuthority("ADMIN")
                         .antMatchers("/clients").hasAuthority("ADMIN")
-                        .antMatchers("/**").hasAuthority("ADMIN")
-                        .antMatchers(HttpMethod.POST,"api/purchaseOrders").hasAnyAuthority("ADMIN", "CLIENT")
-                        .antMatchers(HttpMethod.POST, "api/shoppingCart/current/bills/payment/cash").hasAnyAuthority("ADMIN","CLIENT")
+                        .antMatchers(HttpMethod.POST,"/api/purchaseOrders/**").hasAnyAuthority("ADMIN", "CLIENT")
+                        .antMatchers("/api/purchaseReminder").hasAnyAuthority("ADMIN","CLIENT")
+                        .antMatchers(HttpMethod.POST, "/api/shoppingCart/current/bills/payment/cash").hasAnyAuthority("ADMIN","CLIENT")
                         .antMatchers(HttpMethod.POST, "api/shoppingCart/current/bills/payment/card").hasAnyAuthority("ADMIN", "CLIENT")
                         .antMatchers(HttpMethod.POST,"api/products/newProducts").hasAnyAuthority("ADMIN", "CLIENT")
                         .antMatchers(HttpMethod.DELETE, "api/purchaseOrders").hasAnyAuthority("ADMIN", "CLIENT")
                         .antMatchers(HttpMethod.DELETE, "api/products").hasAuthority("ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "api/clients").hasAuthority("ADMIN");
+                        .antMatchers(HttpMethod.DELETE, "api/clients").hasAuthority("ADMIN")
+                        .antMatchers("/**").hasAuthority("ADMIN");
+
 
 
 

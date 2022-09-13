@@ -12,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 @SpringBootApplication
 public class EcommerceMindhubApplication {
 
@@ -31,15 +34,15 @@ public class EcommerceMindhubApplication {
 									  ProductRepository productRepository,
 									  BillRepository billRepository)  {
 		return (args) ->{
-			Product product1=new Product("Ball",200.00,10 );
-			Product product2=new Product("Raqueta",100.00,5 );
-			Product product3=new Product("Green Ball",150.00,15 );
+			Product product1=new Product("ball",200.00,10 );
+			Product product2=new Product("raqueta",100.00,5 );
+			Product product3=new Product("green ball",150.00,15 );
 
 			productRepository.save(product1);
 			productRepository.save(product2);
 			productRepository.save(product3);
 
-			Client client1=new Client("Lucia", "Saederup", "lucia@gmail.com", "Av. Siempre Viva 123", passwordEncoder.encode("1234"));
+			Client client1=new Client("Lucia", "Saederup", "luciasaederup@gmail.com", "Av. Siempre Viva 123", passwordEncoder.encode("1234"));
 			Client client2=new Client("Gabriel", "Cuello", "gabriel@admin.com", "Av. Siempre Viva 130", passwordEncoder.encode("1234"));
 			Client client3=new Client("Ibrian", "Festorazzi", "ibrian@gmail.com", "Av. Siempre Viva 145", passwordEncoder.encode("1234"));
 			Client client4=new Client("Nadia", "Matsumoto", "nadia@gmail.com", "Av. Siempre Viva 150", passwordEncoder.encode("1234"));
@@ -59,7 +62,6 @@ public class EcommerceMindhubApplication {
 			shoppingCartRepositories.save(carrito2);
 			shoppingCartRepositories.save(carrito3);
 			shoppingCartRepositories.save(carrito4);
-
 
 
 

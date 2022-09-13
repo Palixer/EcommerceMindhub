@@ -9,6 +9,7 @@ import com.example.EcommerceMindhub.repositories.ProductRepository;
 import com.example.EcommerceMindhub.repositories.PurchaseOrRepository;
 import com.example.EcommerceMindhub.services.ProductService;
 import com.example.EcommerceMindhub.services.PurchaseOrderService;
+import com.example.EcommerceMindhub.utils.EmailSenderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +33,8 @@ public class PurchaseOrderServiceImplement implements PurchaseOrderService {
     private ProductRepository productRepository;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     @Override
     public List<PurchaseOrderDTO> findAll() {
@@ -66,10 +71,9 @@ public class PurchaseOrderServiceImplement implements PurchaseOrderService {
         PurchaseOrder newPurchaseOrder = new PurchaseOrder(quantity, productFind.getPrice() * quantity, clientInSession.getShoppingCart(), productFind);
         purchaseOrRepository.save(newPurchaseOrder);
 
-
-
         return new ResponseEntity<>("Orden de compra creada", HttpStatus.CREATED);
     }
+
 
     @Override
     public ResponseEntity<Object> deletePurchaseOrder(Long id) {
@@ -85,5 +89,20 @@ public class PurchaseOrderServiceImplement implements PurchaseOrderService {
         purchaseOrRepository.deleteById(id);
 
         return new ResponseEntity<>("Orden de compra borrada correctamente", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Object> purchaseReminder(Authentication authentication) {
+        Client clientSession = this.clientRepository.findByEmail(authentication.getName());
+        String emailClient = clientSession.getEmail();
+
+        if(clientSession.getShoppingCart().getPurchaseOrders().size() == 0){
+            return new ResponseEntity<>("No tenés ordenes de compra a cancelar.",HttpStatus.FORBIDDEN);
+        }
+
+        EmailSenderUtils sender = new EmailSenderUtils();
+        sender.sendEmail(emailSenderService, emailClient);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

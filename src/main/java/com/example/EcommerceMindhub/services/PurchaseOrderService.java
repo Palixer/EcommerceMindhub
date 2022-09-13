@@ -16,6 +16,8 @@ public interface PurchaseOrderService {
 
     ResponseEntity<Object> deletePurchaseOrder(Long id);
 
+    ResponseEntity<Object> purchaseReminder(Authentication authentication);
+
 
 }
 
